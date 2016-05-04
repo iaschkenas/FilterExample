@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+
+
+        @(Html.Kendo().Grid<Subscriber>()
+        .Name("grid")
+        .DataSource(dataSource => dataSource
+            .Ajax()             
+            .ServerOperation(false) // Paging, sorting, filtering and grouping will be done client-side
+            .Read(read => read.Action("Subscriber_Read", "Home")))
+        .Columns(columns =>
+        {
+            columns.Bound(m => m.Company).Width(100).Filterable(ftb => ftb.Multi(true));
+            columns.Bound(m => m.Country).Width(450);    
+        })
+        .AutoBind(false)  
+        .Filterable() 
+        .Pageable()
+        .Scrollable(s => s.Height("auto"))
+        .Resizable(resize => resize.Columns(true))
+
+        )
+
+@section scripts {
+
+    <script src="@Url.Content("~/Scripts/Home.js")" type="text/javascript"></script>
+}
+
+
+
